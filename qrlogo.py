@@ -15,6 +15,9 @@ from PIL import Image
 
 def fetch_icon(url: str) -> Image.Image | None:
     """Fetch favicon from the provided URL."""
+    # Note: there's a favicon package that can be used to fetch favicon from a URL
+    # but I found it didn't always retrieve the correct favicon.
+    # This is simple but worked in the tests I ran.
     try:
         r = requests.get(url)
         soup = BeautifulSoup(r.text, "html.parser")

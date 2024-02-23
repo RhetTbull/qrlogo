@@ -1,6 +1,6 @@
 # qrlogo
 
-Create QR codes for URLs and automatically add the favicon logo to the QR code
+Simply python script to create QR codes for URLs and automatically add the favicon logo to the center of the QR code.
 
 ## Installation
 
@@ -43,4 +43,5 @@ Produces a QR code with the GitHub favicon in the center:
 
 ## License
 
-MIT License
+Copyright (c) 2024 Rhet Turnbull
+Licensed under the [MIT License](LICENSE)
