@@ -31,19 +31,24 @@ def fetch_icon(url: str) -> Image.Image | None:
 
 
 @click.command()
-@click.option("--url", required=True, help="URL to encode into the QR code")
+@click.option("--url", "-u", required=True, help="URL to encode into the QR code")
 @click.option(
-    "--logo", "logo_path", default=None, type=click.Path(), help="Path to the logo file"
+    "--logo",
+    "-l",
+    "logo_path",
+    default=None,
+    type=click.Path(),
+    help="Path to the logo file",
 )
-@click.option("--no-logo", is_flag=True, default=False, help="No logo on QR code")
-@click.option("--output", required=True, help="Output filename")
+@click.option("--no-logo", "-n", is_flag=True, default=False, help="No logo on QR code")
+@click.option("--output", "-o", required=True, help="Output filename")
 def qrlogo(url, logo_path, no_logo, output):
     """Create QR codes with logos.
-    
+
     If no logo is provided, try to fetch the favicon from the provided URL.
-    
+
     Logo may also be added to the QR code using the --logo option.
-    
+
     Use --no-logo to create a regular QR code without a logo.
     """
     if no_logo and logo_path is not None:
@@ -55,10 +60,8 @@ def qrlogo(url, logo_path, no_logo, output):
 
     # Get favicon if logo is not provided
     if not no_logo and logo_path is None:
-        logo_image = fetch_icon(url)
-        if logo_image is None:
-            base_url = "{0.scheme}://{0.netloc}".format(urllib.parse.urlsplit(url))
-            logo_image = fetch_icon(base_url)
+        base_url = "{0.scheme}://{0.netloc}".format(urllib.parse.urlsplit(url))
+        logo_image = fetch_icon(base_url)
 
         if logo_image is None:
             print(
@@ -112,4 +115,3 @@ def qrlogo(url, logo_path, no_logo, output):
 
 if __name__ == "__main__":
     qrlogo()
-

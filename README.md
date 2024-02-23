@@ -24,11 +24,11 @@ Usage: qrlogo.py [OPTIONS]
   Use --no-logo to create a regular QR code without a logo.
 
 Options:
-  --url TEXT     URL to encode into the QR code  [required]
-  --logo PATH    Path to the logo file
-  --no-logo      No logo on QR code
-  --output TEXT  Output filename  [required]
-  --help         Show this message and exit.
+  -u, --url TEXT     URL to encode into the QR code  [required]
+  -l, --logo PATH    Path to the logo file
+  -n, --no-logo      No logo on QR code
+  -o, --output TEXT  Output filename  [required]
+  --help             Show this message and exit.
 ```
 
 ## Example
