@@ -1,5 +1,7 @@
 """Create QR codes with logos."""
 
+from __future__ import annotations
+
 import re
 import urllib.parse
 from io import BytesIO
@@ -11,7 +13,8 @@ from bs4 import BeautifulSoup
 from PIL import Image
 
 
-def fetch_icon(url):
+def fetch_icon(url: str) -> Image.Image | None:
+    """Fetch favicon from the provided URL."""
     try:
         r = requests.get(url)
         soup = BeautifulSoup(r.text, "html.parser")
@@ -27,11 +30,19 @@ def fetch_icon(url):
 @click.command()
 @click.option("--url", required=True, help="URL to encode into the QR code")
 @click.option(
-    "--logo_path", default=None, type=click.Path(), help="Path to the logo file"
+    "--logo", "logo_path", default=None, type=click.Path(), help="Path to the logo file"
 )
 @click.option("--no-logo", is_flag=True, default=False, help="No logo on QR code")
 @click.option("--output", required=True, help="Output filename")
 def qrlogo(url, logo_path, no_logo, output):
+    """Create QR codes with logos.
+    
+    If no logo is provided, try to fetch the favicon from the provided URL.
+    
+    Logo may also be added to the QR code using the --logo option.
+    
+    Use --no-logo to create a regular QR code without a logo.
+    """
     if no_logo and logo_path is not None:
         raise click.UsageError(
             "Invalid option: --logo_path cannot be used together with --no-logo."
@@ -98,3 +109,4 @@ def qrlogo(url, logo_path, no_logo, output):
 
 if __name__ == "__main__":
     qrlogo()
+
